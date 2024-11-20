@@ -1,0 +1,170 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'font-awesome/css/font-awesome.css' %}" rel="stylesheet">
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+
+    <style>
+        /* Style général pour le formulaire */
+    form {
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style pour les champs du formulaire */
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 1rem;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    .form-group input:focus {
+        border-color: #80bdff;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+    }
+
+    /* Style pour le bouton de soumission */
+    button[type="submit"] {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+    /* Style pour le titre de la liste des prescriptions */
+    h2 {
+        text-align: center;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 1rem;
+    }
+
+    /* Style pour la liste des prescriptions */
+    ul {
+        list-style-type: none; /* Enlève les puces */
+        padding: 0;
+        margin: 0 auto;
+        max-width: 600px;
+    }
+
+    ul li {
+        background-color: #f9f9f9;
+        padding: 1rem;
+        margin-bottom: 0.5rem;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        font-size: 1rem;
+        color: #555;
+    }
+
+    /* Style pour le texte des éléments de liste */
+    ul li:last-child {
+        margin-bottom: 0; /* Enlève la marge pour le dernier élément */
+    }
+
+    /* Style pour le lien vers le tableau de bord */
+    a[href="{% url 'dashboard' %}"] {
+        display: block;
+        text-align: center;
+        margin-top: 1.5rem;
+        font-size: 1rem;
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+    a[href="{% url 'dashboard' %}"]:hover {
+        color: #0056b3;
+    }
+    h1 {
+        text-align: center;
+        color: blue;
+    }
+    h2{
+        color: blue;
+    }
+    body{
+        background-color: #fff;
+    }
+
+</style>
+</head>
+<body>
+    <h2>Prescrire un médicament</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.patient.label_tag }}
+            {{ form.patient }}
+        </div>
+        <div class="form-group">
+            {{ form.medicament.label_tag }}
+            {{ form.medicament }}
+        </div>
+        <div class="form-group">
+            {{ form.dosage.label_tag }}
+            {{ form.dosage }}
+        </div>
+        <div class="form-group">
+            {{ form.duration.label_tag }}
+            {{ form.duration }}
+        </div>
+        <button type="submit" class="btn btn-primary">Prescrire</button>
+    </form>
+
+    <h1>Liste des prescriptions</h1>
+    <ul>
+    {% for prescription in prescriptions %}
+        <li>{{ prescription.medicament }} prescrit pour {{ prescription.patient.nom }} {{ prescription.patient.prenom }} le {{ prescription.date }}</li>
+    {% empty %}
+        <li>Aucune prescription trouvée.</li>
+    {% endfor %}
+    </ul>
+
+    <!-- Lien vers d'autres pages -->
+    <a href="{% url 'dashboard' %}">Retour au tableau de bord</a>
+
+    <!-- Mainly scripts -->
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'font-awesome/css/font-awesome.css' %}" rel="stylesheet">
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div>            
+            <h2>Historique Médical de {{ patient.nom }}</h2>
+            <table>
+                <tr>
+                    <th>Date de Début</th>
+                    <th>Date de Fin</th>
+                    <th>Détails</th>
+                </tr>
+                {% for record in historique %}
+                <tr>
+                    <td>{{ record.date_debut }}</td>
+                    <td>{{ record.date_fin }}</td>
+                    <td>{{ record.details }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <p class="m-t"> <small>Nous vous suivons pas à pas pour une pleine forme</small> </p>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+</body>
+</html>
+
+
+

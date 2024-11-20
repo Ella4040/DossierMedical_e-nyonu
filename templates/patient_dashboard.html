@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord - Patient</title>
+</head>
+<body>
+    <h1>Bienvenue {{ nom }} {{ prenom }} (Patient)</h1>
+    
+    <h2>Mes Rendez-vous</h2>
+    <a href="{% url 'creer_rendezvous' %}">Prendre un rendez-vous</a>
+    <a href="{% url 'rendezvous_liste' %}">Voir mes rendez-vous</a>
+    
+    <h2>Mes Dossiers Médicaux</h2>
+    <a href="{% url 'consulter_dossier_medical' dossier.id %}">Consulter mon dossier médical</a>
+
+    <h2>Prescriptions</h2>
+    <a href="{% url 'prescriptions' %}">Voir mes prescriptions</a>
+</body>
+</html>

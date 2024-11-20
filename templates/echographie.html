@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réaliser une échographie</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+</head>
+<body>
+    <h1>Réaliser une échographie</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.patient.id_for_label }}">{{ form.patient.label }}</label>
+            {{ form.patient }}  <!-- Rendre le champ sans filtre -->
+            {% if form.patient.errors %}
+                <div class="text-danger">
+                    {{ form.patient.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.type_echographie.id_for_label }}">{{ form.type_echographie.label }}</label>
+            {{ form.type_echographie }}  <!-- Rendre le champ sans filtre -->
+        </div>
+        <div class="form-group">
+            <label for="{{ form.resultat.id_for_label }}">{{ form.resultat.label }}</label>
+            {{ form.resultat }}  <!-- Rendre le champ sans filtre -->
+        </div>
+        <button type="submit" class="btn btn-primary">Soumettre</button>
+    </form>
+
+    <a href="{% url 'dashboard' %}">Retour au tableau de bord</a>
+
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+</body>
+</html>
+

@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demande d'Analyse</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <style>
+        /* Style général pour le formulaire */
+    form {
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style pour les champs du formulaire */
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 1rem;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    .form-group input:focus {
+        border-color: #80bdff;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+    }
+
+    /* Style pour le bouton de soumission */
+    button[type="submit"] {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+    /* Style pour le titre de la liste des prescriptions */
+    h2 {
+        text-align: center;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 1rem;
+    }
+
+    /* Style pour la liste des prescriptions */
+    ul {
+        list-style-type: none; /* Enlève les puces */
+        padding: 0;
+        margin: 0 auto;
+        max-width: 600px;
+    }
+
+    ul li {
+        background-color: #f9f9f9;
+        padding: 1rem;
+        margin-bottom: 0.5rem;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        font-size: 1rem;
+        color: #555;
+    }
+
+    /* Style pour le texte des éléments de liste */
+    ul li:last-child {
+        margin-bottom: 0; /* Enlève la marge pour le dernier élément */
+    }
+
+    /* Style pour le lien vers le tableau de bord */
+    a[href="{% url 'dashboard' %}"] {
+        display: block;
+        text-align: center;
+        margin-top: 1.5rem;
+        font-size: 1rem;
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+    a[href="{% url 'dashboard' %}"]:hover {
+        color: #0056b3;
+    }
+    h1 {
+        text-align: center;
+        color: blue;
+    }
+    h2{
+        color: blue;
+    }
+    body{
+        background-color: #fff;
+    }
+
+</style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Demander une Analyse Médicale</h1>
+
+        <form method="post" class="p-4 bg-light rounded shadow-sm">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.patient.label_tag }}
+                {{ form.patient }}
+            </div>
+            <div class="form-group">
+                {{ form.analyse.label_tag }}
+                {{ form.analyse }}
+            </div>
+            <div class="form-group">
+                {{ form.type.label_tag }}
+                {{ form.type }}
+            </div>
+            <div class="form-group">
+                {{ form.nom.label_tag }}
+                {{ form.nom }}
+            </div>
+            <button type="submit" class="btn btn-primary">Soumettre</button>
+        </form>
+
+        <h2 class="mt-5">Vos analyses médicales</h2>
+        {% if analyses %}
+            <ul class="list-group mt-3">
+            {% for analyse in analyses %}
+                <li class="list-group-item">
+                    Type d'analyse : {{ analyse.type }}<br>
+                    Résultats : {{ analyse.resultats }}<br>
+                    Date : {{ analyse.date }}<br>
+                    Laboratoire : {{ analyse.laboratoire }}
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>Aucune analyse disponible.</p>
+        {% endif %}
+
+        <a href="{% url 'dashboard' %}" class="btn btn-link">Retour au tableau de bord</a>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+</body>
+</html>
